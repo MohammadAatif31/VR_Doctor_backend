@@ -1,0 +1,66 @@
+{
+  "fever": {
+    "problem": "Fever",
+    "disease": "Viral Fever",
+    "severity": "medium",
+    "confidence": 75,
+    "doctor": "General Physician",
+    "cause": "Viral infection",
+    "remedies": ["Rest", "Drink warm fluids", "Stay hydrated"],
+    "medicine": "Paracetamol",
+    "advice": "If fever lasts more than 3 days consult doctor"
+  },
+
+  "cold": {
+    "problem": "Common Cold",
+    "disease": "Upper Respiratory Infection",
+    "severity": "low",
+    "confidence": 70,
+    "doctor": "General Physician",
+    "cause": "Viral infection in nose and throat",
+    "remedies": ["Steam inhalation", "Drink warm water", "Rest"],
+    "medicine": "Antihistamine",
+    "advice": "Avoid cold drinks and take proper rest"
+  },
+
+  "headache": {
+    "problem": "Headache",
+    "disease": "Migraine or Stress Headache",
+    "severity": "medium",
+    "confidence": 72,
+    "doctor": "Neurologist",
+    "cause": "Stress, lack of sleep, dehydration",
+    "remedies": ["Rest in dark room", "Drink water", "Relaxation"],
+    "medicine": "Ibuprofen",
+    "advice": "If headache is severe or frequent consult neurologist"
+  },
+  
+  "chest pain": {
+    "problem": "Chest Pain",
+    "disease": "Possible Heart Attack or Severe Cardiac Issue",
+    "severity": "high",
+    "confidence": 88,
+    "doctor": "Cardiologist",
+    "cause": "Blocked arteries or heart muscle stress",
+    "remedies": [
+      "Sit down and rest immediately",
+      "Avoid physical activity",
+      "Call emergency help if pain increases"
+    ],
+    "medicine": "Aspirin (only if prescribed)",
+    "advice": "⚠️ Seek immediate medical attention. Chest pain can be life-threatening."
+  },
+
+  "hand": {
+  "problem": "Hand Pain",
+  "disease": "Muscle Strain or Joint Pain",
+  "severity": "low",
+  "confidence": 70,
+  "doctor": "Orthopedic",
+  "cause": "Overuse, injury, or arthritis",
+  "remedies": ["Rest hand", "Apply ice", "Avoid heavy lifting"],
+  "medicine": "Ibuprofen",
+  "advice": "If swelling or severe pain occurs consult doctor"
+}
+
+}
