@@ -2,7 +2,7 @@ import Chat from "../models/chat.model.js";
 import HealthLog from "../models/healthLog.model.js";
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
-import { healthDataLoader } from "../utils/healthDataLoader.js";
+import { healthData} from "../utils/healthDataLoader.js";
 
 import { getGeminiReply, getGeminiDashboardData } from "./gemini.message.js";
 
@@ -325,7 +325,7 @@ if (!botResponse && intent === "symptom" && jsonMatch) {
 // FINAL UNKNOWN SYMPTOM DETECTOR (WORD BASED)
 //////////////////////////////////////////////////////
 
-const jsonKeys = Object.keys(healthDataLoader).map(k => k.toLowerCase());
+const jsonKeys = Object.keys(healthData).map(k => k.toLowerCase());
 
 const words = text.split(/\s+/);
 
@@ -508,7 +508,7 @@ botResponse = formatResponse(data);
 //////////////////////////////////////////////////////
 detectedDisease =
 data?.disease ||
-healthDataLoader[data?.problem?.toLowerCase()]?.disease ||
+healthData[data?.problem?.toLowerCase()]?.disease ||
 data?.problem ||
 "Unknown";
 
