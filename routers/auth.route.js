@@ -1,7 +1,13 @@
 import express from "express";
-import { register, login, logout, refreshToken, changePassword, getMe }
- from "../controllers/auth.controller.js";
-import { protect} from "../middleware/auth.middleware.js";
+import {
+  register,
+  login,
+  logout,
+  refreshToken,
+  changePassword,
+  getMe
+} from "../controllers/auth.controller.js";
+import { protect } from "../middleware/auth.middleware.js";
 import passport from "../config/passport.js";
 import {
   generateAccessToken,
@@ -10,17 +16,19 @@ import {
 
 const router = express.Router();
 
- 
-// no need to protect routes-//
+// ===============================
+// 🔥 NORMAL AUTH
+// ===============================
 router.post("/register", register);
 router.post("/login", login);
-router.get("/refresh", refreshToken)
-//---yes protect the routes--//  
-router.post("/logout",protect, logout);
-router.post("/change-password", protect, changePassword)
+router.get("/refresh", refreshToken);
+
+router.post("/logout", protect, logout);
+router.post("/change-password", protect, changePassword);
 router.get("/me", protect, getMe);
+
 // ===============================
-// 🔥 GOOGLE LOGIN
+// 🔥 GOOGLE LOGIN START
 // ===============================
 router.get(
   "/google",
@@ -39,33 +47,39 @@ router.get(
     try {
       const user = req.user;
 
-      // ❌ banned user block
+      // ❌ banned user
       if (user.isBanned) {
-        return res.redirect("http://localhost:5173/login");
+        return res.redirect(
+          "https://vr-doctor-frontend.vercel.app/login"
+        );
       }
 
-      // ✅ SAME TOKEN SYSTEM
+      // ✅ TOKENS
       const accessToken = generateAccessToken(user);
       const refreshToken = generateRefreshToken(user);
 
-      // ✅ SAME COOKIE SYSTEM
+      // ✅ PRODUCTION COOKIES (VERY IMPORTANT)
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "None",
       });
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "None",
       });
 
-      // ✅ REDIRECT FRONTEND
-      res.redirect("http://localhost:5173/");
+      // ✅ SUCCESS REDIRECT
+      res.redirect("https://vr-doctor-frontend.vercel.app");
+      
     } catch (err) {
       console.log("GOOGLE ERROR:", err);
-      res.redirect("http://localhost:5173/login");
+
+      res.redirect(
+        "https://vr-doctor-frontend.vercel.app/login"
+      );
     }
   }
 );
