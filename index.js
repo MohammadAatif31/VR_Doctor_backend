@@ -19,11 +19,10 @@ const port = process.env.PORT || 3000;
 connectDB(); //call
 app.use(express.json());
 
+app.set("trust proxy", 1);
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://vr-doctor-frontend.vercel.app"
-  ],
+  origin: "https://vr-doctor-frontend.vercel.app",
   credentials: true
 }));
 

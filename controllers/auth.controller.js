@@ -41,14 +41,14 @@ await UserProfile.create({
 
   res.cookie("accessToken", accessToken, {
    httpOnly: true,
-   secure: false,
-   sameSite: "lax"
+   secure: true,
+   sameSite: "None"
   });
 
   res.cookie("refreshToken", refreshToken, {
    httpOnly: true,
-   secure: false,
-   sameSite: "lax"
+   secure: true,
+   sameSite: "None"
   });
 
   res.status(201).json({
@@ -108,14 +108,14 @@ export const login = async (req, res) => {
   // ================= COOKIE STORE =================
   res.cookie("accessToken", accessToken, {
    httpOnly: true,
-   secure: false,
-   sameSite: "lax"
+   secure: true,
+   sameSite: "None"
   });
 
   res.cookie("refreshToken", refreshToken, {
    httpOnly: true,
-   secure: false,
-   sameSite: "lax"
+   secure: true,
+   sameSite: "None"
   });
 
   // ================= PROFILE FETCH =================
@@ -192,7 +192,8 @@ message:"Account banned by admin"
 
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
-      sameSite: "lax"
+      sameSite: "None",
+      secure: true
     });
 const profile = await UserProfile.findOne({ userId: user._id });
 
