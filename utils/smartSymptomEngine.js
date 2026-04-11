@@ -1,4 +1,4 @@
-import { healthData } from "../utils/healthDataLoader.js";
+import { healthData } from "./healthDataLoader.js";
 
 const symptoms = Object.keys(healthData);
 
@@ -23,10 +23,10 @@ const distance = (a, b) => {
         a[i - 1] === b[j - 1]
           ? dp[i - 1][j - 1]
           : 1 + Math.min(
-              dp[i - 1][j],
-              dp[i][j - 1],
-              dp[i - 1][j - 1]
-            );
+            dp[i - 1][j],
+            dp[i][j - 1],
+            dp[i - 1][j - 1]
+          );
 
     }
 
@@ -54,8 +54,8 @@ const spellingMap = {
   couhg: "cough",
 
   hnd: "hand",
-  cest:"chest",
-  chst: "chest", 
+  cest: "chest",
+  chst: "chest",
 
 };
 
@@ -79,26 +79,26 @@ const normalizePatterns = (text) => {
 
   return text
     // ================= CHEST / HEART =================
-.replace(/pain in chest/g, "chest pain")
-.replace(/pain in my chest/g, "chest pain")
-.replace(/my chest hurts/g, "chest pain")
-.replace(/my chest is hurting/g, "chest pain")
-.replace(/chest hurts/g, "chest pain")
-.replace(/chest hurting/g, "chest pain")
-.replace(/hurt in chest/g, "chest pain")
-.replace(/tight chest/g, "chest pain")
-.replace(/pressure in chest/g, "chest pain")
-.replace(/chest discomfort/g, "chest pain") 
-.replace(/cest discomfort/g, "chest pain")
-.replace(/heart pain/g, "chest pain")
+    .replace(/pain in chest/g, "chest pain")
+    .replace(/pain in my chest/g, "chest pain")
+    .replace(/my chest hurts/g, "chest pain")
+    .replace(/my chest is hurting/g, "chest pain")
+    .replace(/chest hurts/g, "chest pain")
+    .replace(/chest hurting/g, "chest pain")
+    .replace(/hurt in chest/g, "chest pain")
+    .replace(/tight chest/g, "chest pain")
+    .replace(/pressure in chest/g, "chest pain")
+    .replace(/chest discomfort/g, "chest pain")
+    .replace(/cest discomfort/g, "chest pain")
+    .replace(/heart pain/g, "chest pain")
 
     // ================= BREATHING =================
     .replace(/shortness of breath/g, "breathing problem")
     .replace(/difficulty breathing/g, "breathing problem")
     .replace(/hard to breathe/g, "breathing problem")
     .replace(/breathless/g, "breathing problem")
-    .replace(/breath problem/g,"breathing problem")
-    .replace(/breath issue/g,"breathing problem")
+    .replace(/breath problem/g, "breathing problem")
+    .replace(/breath issue/g, "breathing problem")
 
     // ================= STOMACH =================
     .replace(/pain in stomach/g, "stomach pain")
@@ -160,8 +160,8 @@ const normalizePatterns = (text) => {
     .replace(/hand hurts/g, "hand pain")
     .replace(/finger pain/g, "finger pain")
     .replace(/swollen finger/g, "finger swelling")
-     .replace(/pain in hand/g, "hand pain")
-    
+    .replace(/pain in hand/g, "hand pain")
+
 
 
     // ================= LEG / FOOT =================
@@ -198,7 +198,7 @@ const normalizePatterns = (text) => {
     .replace(/loss of taste/g, "taste loss")
     .replace(/cannot taste/g, "taste loss")
     .replace(/loss of smell/g, "smell loss")
-    
+
 
     .replace(/\s+/g, " ")
     .trim();
@@ -223,23 +223,23 @@ export const smartSymptomEngine = (text) => {
 
   const words = input.split(/\s+/);
   //////////////////////////////////////////////////////
-// PRESERVE BODY PART PAIN PHRASES
-//////////////////////////////////////////////////////
+  // PRESERVE BODY PART PAIN PHRASES
+  //////////////////////////////////////////////////////
 
-const bodyParts = [
-  "brain","head","chest","hand","leg","foot","eye",
-  "ear","back","shoulder","knee","finger","stomach"
-];
+  const bodyParts = [
+    "brain", "head", "chest", "hand", "leg", "foot", "eye",
+    "ear", "back", "shoulder", "knee", "finger", "stomach"
+  ];
 
-for (const part of bodyParts) {
+  for (const part of bodyParts) {
 
-  const pattern = new RegExp(`${part}\\s+pain`, "i");
+    const pattern = new RegExp(`${part}\\s+pain`, "i");
 
-  if (pattern.test(input)) {
-    return `${part} pain`;
+    if (pattern.test(input)) {
+      return `${part} pain`;
+    }
+
   }
-
-}
 
   const corrected = words.map(word => {
 
@@ -263,7 +263,7 @@ for (const part of bodyParts) {
     // GENERIC WORD BLOCK
     //////////////////////////////////////////////////////
 
-    if (["pain","problem","issue","hurt","ache"].includes(word)) {
+    if (["pain", "problem", "issue", "hurt", "ache"].includes(word)) {
       return word;
     }
 
@@ -271,64 +271,64 @@ for (const part of bodyParts) {
     // DISTANCE BASED SPELLING CORRECTION
     //////////////////////////////////////////////////////
 
- let best = word;
-let bestScore = Infinity;
+    let best = word;
+    let bestScore = Infinity;
 
-for (const symptom of symptoms) {
+    for (const symptom of symptoms) {
 
-  const parts = symptom.split(" ");
+      const parts = symptom.split(" ");
 
-  for (const part of parts) {
+      for (const part of parts) {
 
-    // skip very small words
-    if (word.length <= 2) continue;
+        // skip very small words
+        if (word.length <= 2) continue;
 
-    const dist = distance(word, part);
+        const dist = distance(word, part);
 
-    if (dist <= 1 && dist < bestScore) {
+        if (dist <= 1 && dist < bestScore) {
 
-      best = part;
-      bestScore = dist;
+          best = part;
+          bestScore = dist;
+
+        }
+
+      }
 
     }
-
-  }
-
-}
 
     return best;
 
   });
 
- let finalText = corrected.join(" ");
+  let finalText = corrected.join(" ");
 
-//////////////////////////////////////////////////////
-// DYNAMIC PAIN PHRASE FIX
-//////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////
+  // DYNAMIC PAIN PHRASE FIX
+  //////////////////////////////////////////////////////
 
-if (finalText.includes("pain")) {
+  if (finalText.includes("pain")) {
 
-  const words = finalText.split(" ");
+    const words = finalText.split(" ");
 
-  for (const symptom of symptoms) {
+    for (const symptom of symptoms) {
 
-    const parts = symptom.split(" ");
+      const parts = symptom.split(" ");
 
-    // example: chest pain
-    if (parts.length === 2 && parts[1] === "pain") {
+      // example: chest pain
+      if (parts.length === 2 && parts[1] === "pain") {
 
-      const bodyPart = parts[0];
+        const bodyPart = parts[0];
 
-      if (finalText.includes(`pain ${bodyPart}`) || finalText.includes(`pain in ${bodyPart}`)) {
-        finalText = symptom;
+        if (finalText.includes(`pain ${bodyPart}`) || finalText.includes(`pain in ${bodyPart}`)) {
+          finalText = symptom;
+        }
+
       }
 
     }
 
   }
 
-}
-
-return finalText;
+  return finalText;
 
 };

@@ -1,5 +1,5 @@
 
-import { healthData } from "../utils/healthDataLoader.js";
+import { healthData } from "./healthDataLoader.js";
 
 export const matchSymptom = (text) => {
 
@@ -15,19 +15,19 @@ export const matchSymptom = (text) => {
 
   const regexCache = {};
 
-for (const key of keys) {
+  for (const key of keys) {
 
-  if (!regexCache[key]) {
-    regexCache[key] = new RegExp(`\\b${key}\\b`, "i");
+    if (!regexCache[key]) {
+      regexCache[key] = new RegExp(`\\b${key}\\b`, "i");
+    }
+
+    if (regexCache[key].test(cleaned)) {
+
+      matched.push(healthData[key]);
+
+    }
+
   }
-
-  if (regexCache[key].test(cleaned)) {
-
-    matched.push(healthData[key]);
-
-  }
-
-}
 
   if (matched.length === 0) return null;
 
