@@ -108,14 +108,14 @@ export const login = async (req, res) => {
   // ================= COOKIE STORE =================
   res.cookie("accessToken", accessToken, {
    httpOnly: true,
-   secure: true,
-   sameSite: "None"
+   secure: false,
+   sameSite: "lax"
   });
 
   res.cookie("refreshToken", refreshToken, {
    httpOnly: true,
-   secure: true,
-   sameSite: "None"
+   secure: false,
+   sameSite: "lax"
   });
 
   // ================= PROFILE FETCH =================
