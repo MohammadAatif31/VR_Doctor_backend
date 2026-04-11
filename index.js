@@ -19,8 +19,8 @@ const port = process.env.PORT || 3000;
 connectDB(); //call
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",  // frontend url//
-  credentials:true
+  origin: "https://vr-doctor-frontend.vercel.app",
+  credentials: true
 }));
 app.use(cookieParser()) 
  
