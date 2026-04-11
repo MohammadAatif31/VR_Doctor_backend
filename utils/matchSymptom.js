@@ -1,5 +1,5 @@
 
-import { healthData } from "./healthDataLoader.js";
+import { healthData } from "./healthDataloader.js";
 
 export const matchSymptom = (text) => {
 

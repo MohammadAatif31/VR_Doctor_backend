@@ -1,4 +1,4 @@
-import { healthData } from "./healthDataLoader.js";
+import { healthData } from "./healthDataloader.js";
 
 const symptoms = Object.keys(healthData);
 
