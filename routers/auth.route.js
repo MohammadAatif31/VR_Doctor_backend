@@ -47,6 +47,10 @@ router.get(
     try {
       const user = req.user;
 
+      if (!req.user) {
+  return res.redirect("https://vr-doctor-frontend.vercel.app/login");
+}
+
       // ❌ banned user
       if (user.isBanned) {
         return res.redirect(
