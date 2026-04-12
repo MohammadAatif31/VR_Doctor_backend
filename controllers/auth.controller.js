@@ -29,11 +29,15 @@ export const register = async (req, res) => {
   });
 
   // ⭐ AUTO CREATE PROFILE WITH DEFAULT IMAGE
-await UserProfile.create({
-  userId: user._id,
-  name: user.name,
-  photo: "https://i.pravatar.cc/150?img=12"
-});
+try {
+  await UserProfile.create({
+    userId: user._id,
+    name: user.name,
+    photo: "https://i.pravatar.cc/150?img=12"
+  });
+} catch (err) {
+  console.log("Profile create error:", err);
+}
 
   // ⭐ AUTO LOGIN AFTER REGISTER
   const accessToken = generateAccessToken(user);
