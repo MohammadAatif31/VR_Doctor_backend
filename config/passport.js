@@ -12,7 +12,11 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const email = profile.emails[0].value;
+       const email = profile.emails?.[0]?.value;
+
+if (!email) {
+  return done(new Error("No email found from Google"), null);
+}
 
         let user = await User.findOne({ email });
 
@@ -23,14 +27,15 @@ passport.use(
             email,
             password: "google_auth_dummy", // safe dummy
           });
-
-          await UserProfile.create({
-            userId: user._id,
-            name: user.name,
-            photo:
-              profile.photos?.[0]?.value ||
-              "https://i.pravatar.cc/150?img=12",
-          });
+          try {
+  await UserProfile.create({
+    userId: user._id,
+    name: user.name,
+    photo: profile.photos?.[0]?.value || "https://i.pravatar.cc/150?img=12",
+  });
+} catch (err) {
+  console.log("Profile create error:", err);
+}
         }
 
         return done(null, user);
