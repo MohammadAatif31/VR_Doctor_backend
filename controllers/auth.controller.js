@@ -147,10 +147,19 @@ export const login = async (req, res) => {
 
 // ================= LOGOUT =================
 export const logout = (req, res) => {
- res.clearCookie("accessToken");
- res.clearCookie("refreshToken");
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  });
 
- res.json({ message: "Logged out" });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  });
+
+  res.json({ message: "Logged out" });
 };
 
 
