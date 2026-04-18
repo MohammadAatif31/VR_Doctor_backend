@@ -30,11 +30,20 @@ export const register = async (req, res) => {
 
   // ⭐ AUTO CREATE PROFILE WITH DEFAULT IMAGE
 try {
-  await UserProfile.create({
-    userId: user._id,
-    name: user.name,
-    photo:null
-  });
+ // ✅ DEFAULT AVATAR GENERATE (FIXED)
+const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=111&color=fff`;
+
+// ✅ PROFILE CREATE
+await UserProfile.create({
+  userId: user._id,
+  name: user.name,
+  photo: defaultAvatar
+});
+
+// ✅ USER TABLE ME BHI SAVE (VERY IMPORTANT)
+await User.findByIdAndUpdate(user._id, {
+  photo: defaultAvatar
+});
 } catch (err) {
   console.log("Profile create error:", err);
 }
