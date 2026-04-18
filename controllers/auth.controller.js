@@ -30,14 +30,12 @@ export const register = async (req, res) => {
 
   // ⭐ AUTO CREATE PROFILE WITH DEFAULT IMAGE
 try {
- // ✅ DEFAULT AVATAR GENERATE (FIXED)
-const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=111&color=fff`;
-
+ 
 // ✅ PROFILE CREATE
 await UserProfile.create({
   userId: user._id,
   name: user.name,
-  photo: defaultAvatar
+  photo: null
 });
 
 // ✅ USER TABLE ME BHI SAVE (VERY IMPORTANT)
@@ -142,7 +140,7 @@ export const login = async (req, res) => {
     name: user.name,
     email: user.email,
     role: user.role,
-    photo: profile?.photo || null
+    photo: profile?.photo || ""
    }
   });
 
@@ -225,7 +223,7 @@ res.json({
     name: user.name,
     email: user.email,
     role: user.role,
-    photo: profile?.photo  || null
+    photo: profile?.photo  || ""
   }
 });
 
