@@ -15,7 +15,7 @@ export const createOrder = async (req, res) => {
   try {
   
     const options = {
-      amount: 19900,
+      amount: 2900,
       currency: "INR"
     };
 
