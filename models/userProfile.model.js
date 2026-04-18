@@ -16,7 +16,7 @@ const userProfileSchema = new mongoose.Schema({
  diseases: String,
  photo: {
   type: String,
-  default: "https://i.pravatar.cc/150?img=12"
+  default:null
 }
 
 }, { timestamps: true });
