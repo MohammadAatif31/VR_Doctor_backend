@@ -133,7 +133,7 @@ export const login = async (req, res) => {
     name: user.name,
     email: user.email,
     role: user.role,
-    photo: profile?.photo
+    photo: profile?.photo || null
    }
   });
 
@@ -216,7 +216,7 @@ res.json({
     name: user.name,
     email: user.email,
     role: user.role,
-    photo: profile?.photo  
+    photo: profile?.photo  || null
   }
 });
 

@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
 const userProfileSchema = new mongoose.Schema({
- userId: {
-  type: String,
+userId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "User",
   required: true,
   unique: true
- },
+},
 
  name: String,
  age: Number,
