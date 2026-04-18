@@ -16,7 +16,7 @@ const userProfileSchema = new mongoose.Schema({
  diseases: String,
  photo: {
   type: String,
-  default:null
+  default: null
 }
 
 }, { timestamps: true });

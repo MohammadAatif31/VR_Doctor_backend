@@ -30,11 +30,11 @@ export const register = async (req, res) => {
 
   // ⭐ AUTO CREATE PROFILE WITH DEFAULT IMAGE
 try {
- await UserProfile.create({
-  userId: user._id,
-  name: user.name,
-  photo: null // ✅ no default image
-});
+  await UserProfile.create({
+    userId: user._id,
+    name: user.name,
+    photo:null
+  });
 } catch (err) {
   console.log("Profile create error:", err);
 }
