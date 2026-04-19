@@ -47,13 +47,14 @@ export const verifyPayment = async (req, res) => {
 
     if (expectedSignature === razorpay_signature) {
 
-      const expiryDate = new Date();
-      expiryDate.setMonth(expiryDate.getMonth() + 1);
+ const expiryDate = new Date();
+expiryDate.setDate(expiryDate.getDate() + 30); // 30 days plan
 
-      await User.findByIdAndUpdate(req.user, {
-        isPremium: true,
-        premiumExpiry: expiryDate
-      });
+await User.findByIdAndUpdate(req.user, {
+  isPremium: true,
+  premiumExpiry: expiryDate,
+  paymentAmount: 29
+});
 
       return res.json({ success: true });
     }
