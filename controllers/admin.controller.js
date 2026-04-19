@@ -21,7 +21,7 @@ export const getDashboard = async (req, res) => {
     const totalHealthLogs = await HealthLog.countDocuments();
 
   const totalPremiumUsers = await User.countDocuments({ isPremium: true });
-const revenue = totalPremiumUsers * 199;
+const revenue = totalPremiumUsers * 29;
 
     const latestUsers = await User.find()
       .sort({ createdAt: -1 })
