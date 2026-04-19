@@ -32,7 +32,6 @@ export const createOrder = async (req, res) => {
 // VERIFY
 export const verifyPayment = async (req, res) => {
   try {
-
     const {
       razorpay_order_id,
       razorpay_payment_id,
@@ -48,8 +47,12 @@ export const verifyPayment = async (req, res) => {
 
     if (expectedSignature === razorpay_signature) {
 
+      const expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
+
       await User.findByIdAndUpdate(req.user, {
-        isPremium: true
+        isPremium: true,
+        premiumExpiry: expiryDate
       });
 
       return res.json({ success: true });
